@@ -49,7 +49,7 @@ O EstudAI automatiza esse trabalho braçal e deixa o pesquisador livre para a pa
 | **Assistente de método científico** | Chat contextual sobre a análise, com tom de orientador, respostas diretas e um bloco *"Em resumo"* no final. |
 | **Histórico e retomada** | Cada análise fica salva com a conversa. É possível reprocessar só os PDFs que falharam e recalcular as correlações. |
 | **Revisão Mendeley** | Importe sua coleção (BibTeX/RIS), anexe PDFs e analise lacunas, métodos, escopo e referências compartilhadas. |
-| **Busca em bases abertas** | Descreva o tema em linguagem natural e busque em OpenAlex, Semantic Scholar e BDTD. |
+| **Busca em várias bases** | Descreva o tema em linguagem natural e busque em OpenAlex, Semantic Scholar, SciELO, BDTD e, opcionalmente, Google Scholar. |
 | **Exportação** | Relatório em PDF, planilha CSV e referências em BibTeX. |
 
 <table>
@@ -105,7 +105,7 @@ flowchart LR
         R --> PDF["Extração de PDFs<br/>PyMuPDF + seções de lacunas"]
         R --> COR["Correlações entre estudos"]
         R --> CHAT["Assistente de método"]
-        R --> SRCH["Busca OpenAlex · Semantic Scholar · BDTD"]
+        R --> SRCH["Busca OpenAlex · Semantic Scholar · SciELO · BDTD · Google Scholar"]
         PDF --> LLM["call_llm"]
         COR --> LLM
         CHAT --> LLM
@@ -196,6 +196,7 @@ Todas as variáveis são opcionais — sem nenhuma chave no servidor, cada usuá
 | `LLM_TIMEOUT_SECONDS` | Tempo máximo de cada chamada ao modelo (padrão: 180) |
 | `DATABASE_URL` | SQLite (padrão) ou PostgreSQL |
 | `OPENALEX_EMAIL`, `SEMANTIC_SCHOLAR_API_KEY` | Identificação nas bases abertas |
+| `SERPAPI_API_KEY` | Ativa a busca no Google Scholar via [SerpApi](https://serpapi.com/manage-api-key) (plano gratuito com 250 buscas/mês) |
 | `CORS_ORIGINS` | Origens autorizadas a chamar a API |
 
 > Em uma instância pública, não defina chave no servidor: ela ficaria disponível para todos os visitantes.
@@ -214,7 +215,7 @@ EstudAI/
 │   │   ├── export/        # relatório em PDF
 │   │   ├── extraction/    # cliente de LLM e resolução da configuração
 │   │   ├── importers/     # Mendeley, RIS/BibTeX, anexos de PDF
-│   │   └── search/        # OpenAlex, Semantic Scholar, BDTD
+│   │   └── search/        # OpenAlex, Semantic Scholar, SciELO, BDTD, Google Scholar
 │   └── tests/
 ├── frontend/
 │   ├── app/               # páginas (App Router)

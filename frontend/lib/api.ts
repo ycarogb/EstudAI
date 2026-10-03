@@ -356,6 +356,8 @@ export function getSourceLabel(source: string): string {
     openalex: "OpenAlex",
     semantic_scholar: "Semantic Scholar",
     bdtd: "BDTD",
+    scielo: "SciELO",
+    google_scholar: "Google Scholar",
     mendeley: "Mendeley",
     import: "Importado",
     scopus: "Scopus",

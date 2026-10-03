@@ -21,6 +21,7 @@ class Settings(BaseSettings):
 
     openalex_email: str = ""
     semantic_scholar_api_key: str = ""
+    serpapi_api_key: str = ""
 
     scopus_api_key: str = ""
     scopus_inst_token: str = ""

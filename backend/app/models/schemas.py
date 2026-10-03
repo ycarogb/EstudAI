@@ -7,6 +7,8 @@ class PaperSource(str, Enum):
     OPENALEX = "openalex"
     SEMANTIC_SCHOLAR = "semantic_scholar"
     BDTD = "bdtd"
+    SCIELO = "scielo"
+    GOOGLE_SCHOLAR = "google_scholar"
     IMPORT = "import"
     MENDELEY = "mendeley"
     SCOPUS = "scopus"

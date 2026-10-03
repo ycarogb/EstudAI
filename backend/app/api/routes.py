@@ -74,6 +74,14 @@ async def list_sources():
             {"id": "openalex", "name": "OpenAlex", "enabled": True, "type": "open"},
             {"id": "semantic_scholar", "name": "Semantic Scholar", "enabled": True, "type": "open"},
             {"id": "bdtd", "name": "BDTD", "enabled": True, "type": "open"},
+            {"id": "scielo", "name": "SciELO", "enabled": True, "type": "open"},
+            {
+                "id": "google_scholar",
+                "name": "Google Scholar",
+                "enabled": bool(settings.serpapi_api_key),
+                "type": "paid",
+                "note": "Configure SERPAPI_API_KEY no .env (via SerpApi)",
+            },
             {"id": "import", "name": "Importação CAPES (RIS/BibTeX)", "enabled": True, "type": "import"},
             {"id": "mendeley", "name": "Coleção Mendeley (BibTeX/RIS)", "enabled": True, "type": "import"},
             {

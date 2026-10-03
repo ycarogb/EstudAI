@@ -335,8 +335,8 @@ export default function HomePage() {
             <div className="text-center">
               <h2 className="text-3xl font-bold tracking-tight text-gray-900">Comece pela busca</h2>
               <p className="mt-3 text-gray-600">
-                Descreva seu tema em linguagem natural e encontre trabalhos em OpenAlex, Semantic Scholar e
-                BDTD.
+                Descreva seu tema em linguagem natural e encontre trabalhos em OpenAlex, Semantic Scholar,
+                SciELO, BDTD e Google Scholar.
               </p>
             </div>
 
@@ -355,7 +355,7 @@ export default function HomePage() {
                 </div>
                 <div className="flex items-center justify-between border-t border-gray-100 px-4 py-3">
                   <p className="text-xs text-gray-500">
-                    Fontes: OpenAlex · Semantic Scholar · BDTD · Importação CAPES
+                    Fontes: OpenAlex · Semantic Scholar · SciELO · BDTD · Google Scholar · Importação CAPES
                   </p>
                   <Button type="submit" disabled={loading || !query.trim()}>
                     {loading ? "Buscando..." : "Buscar trabalhos"}

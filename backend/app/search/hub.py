@@ -4,17 +4,23 @@ import logging
 from app.models.schemas import Paper, PaperSource, SearchFilters
 from app.search.base import SearchAdapter, normalize_title
 from app.search.bdtd import BDTDAdapter
+from app.search.google_scholar import GoogleScholarAdapter
 from app.search.openalex import OpenAlexAdapter
+from app.search.scielo import SciELOAdapter
 from app.search.scopus import ScopusAdapter
 from app.search.wos import WOSAdapter
 from app.search.semantic_scholar import SemanticScholarAdapter
 
 logger = logging.getLogger(__name__)
 
+# A ordem define a fonte mantida na deduplicação: SciELO vem antes do OpenAlex,
+# que também indexa os mesmos DOIs.
 DEFAULT_SOURCES = [
+    PaperSource.SCIELO,
     PaperSource.OPENALEX,
     PaperSource.SEMANTIC_SCHOLAR,
     PaperSource.BDTD,
+    PaperSource.GOOGLE_SCHOLAR,
 ]
 
 
@@ -24,6 +30,8 @@ class SearchHub:
             PaperSource.OPENALEX: OpenAlexAdapter(),
             PaperSource.SEMANTIC_SCHOLAR: SemanticScholarAdapter(),
             PaperSource.BDTD: BDTDAdapter(),
+            PaperSource.SCIELO: SciELOAdapter(),
+            PaperSource.GOOGLE_SCHOLAR: GoogleScholarAdapter(),
             PaperSource.SCOPUS: ScopusAdapter(),
             PaperSource.WOS: WOSAdapter(),
         }
