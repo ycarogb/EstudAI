@@ -1,0 +1,72 @@
+services:
+  # SQLite é baseado em arquivo: este serviço mantém o volume e o CLI.
+  db:
+    image: keinos/sqlite3:latest
+    container_name: estudai-db
+    user: "0:0"
+    working_dir: /data
+    volumes:
+      - sqlite_data:/data
+    # Mantém o container ativo para inspeção: docker compose exec db sqlite3 estudai.db
+    entrypoint: ["/sbin/tini", "-g", "--"]
+    command:
+      - /bin/sh
+      - -c
+      - |
+        mkdir -p /data
+        chmod 777 /data
+        exec sleep infinity
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "sqlite3", "--version"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  backend:
+    build: ./backend
+    container_name: estudai-backend
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: sqlite+aiosqlite:////data/estudai.db
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
+      OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-}
+      OPENALEX_EMAIL: ${OPENALEX_EMAIL:-}
+      SEMANTIC_SCHOLAR_API_KEY: ${SEMANTIC_SCHOLAR_API_KEY:-}
+      LLM_PROVIDER: ${LLM_PROVIDER:-openai}
+      LLM_MODEL: ${LLM_MODEL:-}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000,http://localhost:3001}
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+      - sqlite_data:/data
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+  # Opcional: PostgreSQL (docker compose --profile postgres up -d)
+  postgres:
+    profiles: ["postgres"]
+    image: postgres:16-alpine
+    container_name: estudai-postgres
+    environment:
+      POSTGRES_USER: estudai
+      POSTGRES_PASSWORD: estudai
+      POSTGRES_DB: estudai
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U estudai"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  sqlite_data:
+  postgres_data:
