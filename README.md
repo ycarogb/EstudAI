@@ -10,7 +10,6 @@ Assistente de IA para revisão bibliográfica: extrai objetivos, metodologia, re
 
 *AI research assistant for literature reviews — bring your own LLM key (OpenAI, Gemini, Claude or OpenRouter).*
 
-[![CI](https://github.com/ycarogb/EstudAI/actions/workflows/ci.yml/badge.svg)](https://github.com/ycarogb/EstudAI/actions/workflows/ci.yml)
 [![Licença MIT](https://img.shields.io/badge/licen%C3%A7a-MIT-22c55e)](LICENSE)
 ![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)
@@ -125,7 +124,7 @@ flowchart LR
 | Backend | FastAPI, Pydantic v2, SQLAlchemy 2 (async), PyMuPDF |
 | LLMs | SDK da OpenAI (OpenAI, endpoints compatíveis do Gemini e OpenRouter) e SDK da Anthropic |
 | Dados | SQLite por padrão, PostgreSQL opcional via Docker Compose |
-| Qualidade | pytest + pytest-asyncio, GitHub Actions |
+| Qualidade | pytest + pytest-asyncio, workflow de CI para GitHub Actions |
 
 ### Destaques de engenharia
 
